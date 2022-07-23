@@ -16,6 +16,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     ifstream ifs(argv[1]);
+    ofstream ofs(argv[2],ofstream::app);
+
     if (ifs) {
         Sales_data total;
         if (read(ifs, total)) {
@@ -24,11 +26,11 @@ int main(int argc, char* argv[])
                 if (total.isbn() == trans.isbn())
                     total.combine(trans);
                 else {
-                    print(cout, total) << endl;
+                    print(ofs, total) << endl;
                     total = trans;
                 }
             }
-            print(cout, total) << endl;
+            print(ofs, total) << endl;
         } else {
             cerr << "No Data?!" << endl;
         }
