@@ -15,6 +15,9 @@ struct PersonInfo {
     string name;
     vector<string> phones;
 };
+bool valid(string);
+string format(string);
+ostream os;
 
 int main()
 {
@@ -40,6 +43,22 @@ int main()
         while (record >> word)
             info.phones.push_back(word);
         people.push_back(info);
+    }
+
+    for (const auto &entry : people) {
+        ostringstream formatted, badNums;
+        for (const auto &nums : entry.phones) {
+            if (!valid(nums)) {
+                badNums << " " << nums;
+            } else {
+                formatted << " " << format(nums);
+            }
+        }
+        if (badNums.str().empty()) {
+            os << entry.name << " " << formatted.str() << endl;
+        } else {
+            cerr << "input error: " << entry.name << "invalid number(s) " << badNums.str() << endl;
+        }
     }
     system("pause");
     return 0;
