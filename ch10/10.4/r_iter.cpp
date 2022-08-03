@@ -43,6 +43,13 @@ int main()
     auto f_iter = find(lst.crbegin(), lst.crend(), 0);
     cout << distance(f_iter, lst.crend()) << endl;
 
+    list<int> ilst(10);
+    vector<int> ivec{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    copy(ivec.rbegin() + 3, ivec.rbegin() + 8, ilst.begin());
+    for (auto i : ilst)
+        cout << i << " ";
+    cout << endl;
+
     system("pause");
     return 0;
 }
