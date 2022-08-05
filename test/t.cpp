@@ -1,47 +1,43 @@
-#include<iostream>
-#include<stack>
+#include <iostream>
+#include <stack>
+#include <vector>
 using namespace std;
 
-bool isValid(string s) {
-        stack<char> sstack;
-        char Top;
-        for (auto i : s) {
-            if (!sstack.empty()) {
-                Top = sstack.top();
-                cout <<"i = " << i << " Top = " << Top << endl;
-                switch (i)
-                {
-                    case ')': {
-                        if (Top == '(') {
-                            sstack.pop();
-                            continue;
-                        }
-                        break;
-                    }
-                    case ']': {
-                        if (Top == '[') {
-                            sstack.pop();
-                            continue;
-                        }
-                        break;
-                    }
-                    case '}': {
-                        if (Top == '{') {
-                            sstack.pop();
-                            continue;
-                        }
-                        break;
-                    }
-                }
+int trap(vector<int>& height) {
+        int res = 0;
+        int n = height.size();
+        vector<int> lvec;
+        vector<int> rvec(n);
+        
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            if (height[i] <= max)
+                lvec.push_back(max);
+            else {
+                max = height[i];
+                lvec.push_back(max);
             }
-            sstack.push(i);
         }
-        return sstack.empty();
+        max = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            if (height[i] <= max)
+                rvec[i] = max;
+            else {
+                max = height[i];
+                rvec[i] = max;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            //cout << lvec[i] << " " << rvec[i]
+            res += min(lvec[i], rvec[i]) - height[i];
+        }
+        return res;
     }
+
 int main () 
 {
-    string s = "({{{{}}}))";
-    cout << isValid(s) << endl;
+    
+
     system("pause");
     return 0;
 }
