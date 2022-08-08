@@ -32,8 +32,8 @@ void runQueries(ifstream &textfile)
 
 int main()
 {
-    
-
+    ifstream ifs("ch12/12.3/textfile.txt");
+    runQueries(ifs);
     system("pause");
     return 0;
 }
